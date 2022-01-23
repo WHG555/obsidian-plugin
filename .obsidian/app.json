@@ -1,9 +1,0 @@
-{
-  "strictLineBreaks": true,
-  "showLineNumber": true,
-  "useMarkdownLinks": true,
-  "newLinkFormat": "relative",
-  "alwaysUpdateLinks": true,
-  "showUnsupportedFiles": true,
-  "readableLineLength": false
-}
