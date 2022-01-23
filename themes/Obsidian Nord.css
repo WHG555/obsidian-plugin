@@ -175,7 +175,7 @@ a.tag, a.tag:hover {
 
 mark
 {
-    background-color: var(--text-mark) !important;
+    background-color: var(--text-mark);
 }
 
 .titlebar {
@@ -487,3 +487,9 @@ input.task-list-item-checkbox:checked {
     fill: var(--frost3) !important;
 }
 
+.setting-item-control input[type="text"] {
+    color: var(--text-normal);
+}
+.setting-item-control input[type="text"]::placeholder {
+    color: var(--dark3);
+}

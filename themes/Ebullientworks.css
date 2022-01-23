@@ -1,9 +1,40 @@
 @charset "UTF-8";
+/*
+Ebullientworks 0.3.4 by @ebullient
+
+This is a dark and light theme for Obsidian.
+
+Additional tweaks available with the Style Settings plugin
+
+Sponsor my work:
+https://www.buymeacoffee.com/ebullient
+
+Readme:
+https://github.com/ebullient/obsidian-theme-ebullientworks
+*/
 /* @settings
 
 name: Ebullientworks theme settings
 id: ebullientworks-theme
 settings:
+  -
+    id: ebullientworks-use-default-list-indent
+    title: Use the default indent for lists
+    description: This theme compresses list indent whitespace by default. Enable this to use the indent spacing from the default theme.
+    type: class-toggle
+    default: false
+  -
+    id: ebullientworks-nix-checkbox
+    title: Suppress/Remove this checkbox styles
+    description: Set this to true if you are going to use your own task snippet
+    type: class-toggle
+    default: false
+  -
+    id: ebullientworks-show-hide
+    title: Showing and Hiding content
+    type: heading
+    level: 3
+    collapsed: true
   -
     id: ebullientworks-show-edit-mode-external-links
     title: Show external links in edit mode
@@ -11,9 +42,9 @@ settings:
     type: class-toggle
     default: false
   -
-    id: ebullientworks-nix-checkbox
-    title: Suppress or Remove this theme's checkbox styles
-    description: Set this to true if you are going to use other themes to manage the style for your lists and checkboxes.
+    id: ebullientworks-hide-inactive-collapse-indicators
+    title: Hide collapse indicators unless hovered or active
+    description: If true, hide collapse indicators in all three modes unless they are hovered over or the line is active.
     type: class-toggle
     default: false
   -
@@ -28,6 +59,12 @@ settings:
     description: If true, tables will have a maximum width set. Cell content will be wrapped (mid-word if necessary).
     type: class-toggle
     default: false
+  -
+    id: ebullientworks-fonts
+    title: Fonts
+    type: heading
+    level: 3
+    collapsed: true
   -
     title: Headings
     description: Font for text headings (h1 to h6)
@@ -51,6 +88,12 @@ settings:
     id: font-monospace
     type: variable-text
     default: "'Fira Code', 'Source Code Pro', Jetbrains Mono, SFMono-Regular, Consolas, 'Roboto Mono', monospace"
+  -
+    id: ebullientworks-colors
+    title: Colors
+    type: heading
+    level: 3
+    collapsed: true
   -
     title: Primary accent color
     id: ebullientworks-primary-accent
@@ -79,6 +122,42 @@ settings:
         - secondary-accent-teal
         - secondary-accent-blue
         - secondary-accent-custom
+  -
+    title: Tag brightness - dark mode
+    id: tag-dark
+    description: Select tag brightness/contrast level for dark mode
+    type: variable-select
+    allowEmpty: false
+    default: var(--tag-4)
+    options:
+        - value: var(--tag-0)
+          label: lightest
+        - value: var(--tag-1)
+          label: lighter
+        - value: var(--tag-2)
+          label: light
+        - value: var(--tag-3)
+          label: medium
+        - value: var(--tag-4)
+          label: dark
+  -
+    title: Tag brightness - light mode
+    id: tag-light
+    description: Select tag brightness/contrast level for light mode
+    type: variable-select
+    allowEmpty: false
+    default: var(--tag-4)
+    options:
+        - value: var(--tag-2)
+          label: light
+        - value: var(--tag-3)
+          label: medium
+        - value: var(--tag-4)
+          label: dark
+        - value: var(--tag-5)
+          label: darker
+        - value: var(--tag-6)
+          label: darkest
  */
 @import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=IBM+Plex+Sans:wght@300;400;700&display=swap");
 :root {
@@ -346,6 +425,7 @@ settings:
   --highlight-mix-blend-mode: lighten;
 }
 
+.theme-dark .print,
 .theme-light {
   /** Core styles **/
   --background-primary: var(--gray-light-7);
@@ -387,6 +467,14 @@ settings:
   --highlight-mix-blend-mode: lighten;
 }
 
+.theme-dark .print,
+.theme-light .print {
+  --background-primary: white;
+  --background-primary-alt: #fafafa;
+  --background-secondary: #fcfcfc;
+  --background-secondary-alt: #f3f3f3;
+}
+
 .theme-dark {
   --side-dock-text-on-accent: var(--gray-light-4);
   --side-dock-text-on-accent-hover: var(--yellow-1);
@@ -394,6 +482,7 @@ settings:
   --side-dock-accent-hover: var(--secondary-accent-4);
 }
 
+.theme-dark .print,
 .theme-light {
   --side-dock-text-on-accent: var(--gray-dark-4);
   --side-dock-text-on-accent-hover: var(--yellow-4);
@@ -491,6 +580,7 @@ settings:
 }
 
 .nav-folder-title,
+.nav-folder-title-content,
 .nav-file-title,
 .nav-file-title-content {
   font-weight: normal;
@@ -610,7 +700,6 @@ settings:
 .menu-item.selected:not(.is-disabled):not(.is-label),
 body:not(.is-grabbing) .nav-file-title:hover,
 body:not(.is-grabbing) .nav-folder-title:hover,
-.nav-file:hover,
 .nav-action-button:hover,
 .nav-action-button.is-active:hover,
 .tree-item-self.is-clickable:hover,
@@ -626,16 +715,6 @@ body:not(.is-grabbing) .nav-folder-title:hover,
   --active-leaf-action-hover: var(--yellow-1);
 }
 
-.theme-light {
-  --leaf-fg: var(--gray-light-5);
-  --sharp-border: 1px solid rgba(0, 0, 0, .1);
-  --resize-handle-bg: var(--background-secondary-alt);
-  --active-leaf-bg: linear-gradient(to top, var(--primary-accent-5), var(--primary-accent-4) 2%, var(--primary-accent-3) 15%, var(--primary-accent-3));
-  --rotated-active-leaf-bg: linear-gradient(to left, var(--primary-accent-5), var(--primary-accent-4) 2%, var(--primary-accent-3) 15%, var(--primary-accent-3));
-  --inactive-leaf-bg: linear-gradient(to top, var(--gray-dark-3), var(--gray-dark-2) 2%, var(--gray-dark-1) 15%, var(--gray-dark-1));
-  --rotated-inactive-leaf-bg: linear-gradient(to left, var(--gray-dark-3), var(--gray-dark-2) 2%, var(--gray-dark-1) 15%, var(--gray-dark-1));
-}
-
 .theme-dark {
   --leaf-fg: var(--text-muted);
   --sharp-border: 1px solid rgba(0, 0, 0, 0.5);
@@ -644,6 +723,17 @@ body:not(.is-grabbing) .nav-folder-title:hover,
   --rotated-active-leaf-bg: linear-gradient(to left, var(--gray-dark-7), var(--primary-accent-6) 2%, var(--primary-accent-5) 15%, var(--primary-accent-5));
   --inactive-leaf-bg: linear-gradient(to top, var(--gray-dark-7), var(--gray-dark-6) 2%, var(--gray-dark-5) 15%, var(--gray-dark-5));
   --rotated-inactive-leaf-bg: linear-gradient(to left, var(--gray-dark-7), var(--gray-dark-6) 2%, var(--gray-dark-5) 15%, var(--gray-dark-5));
+}
+
+.theme-dark .print,
+.theme-light {
+  --leaf-fg: var(--gray-light-5);
+  --sharp-border: 1px solid rgba(0, 0, 0, .1);
+  --resize-handle-bg: var(--background-secondary-alt);
+  --active-leaf-bg: linear-gradient(to top, var(--primary-accent-5), var(--primary-accent-4) 2%, var(--primary-accent-3) 15%, var(--primary-accent-3));
+  --rotated-active-leaf-bg: linear-gradient(to left, var(--primary-accent-5), var(--primary-accent-4) 2%, var(--primary-accent-3) 15%, var(--primary-accent-3));
+  --inactive-leaf-bg: linear-gradient(to top, var(--gray-dark-3), var(--gray-dark-2) 2%, var(--gray-dark-1) 15%, var(--gray-dark-1));
+  --rotated-inactive-leaf-bg: linear-gradient(to left, var(--gray-dark-3), var(--gray-dark-2) 2%, var(--gray-dark-1) 15%, var(--gray-dark-1));
 }
 
 .workspace-split.mod-root > .workspace-leaf:first-of-type:last-of-type .view-header,
@@ -813,31 +903,6 @@ body.plugin-sliding-panes-rotate-header .horizontal-main-container > .workspace 
   border-left: none;
 }
 
-.theme-light {
-  --modal-nav-bg: var(--primary-accent-2);
-  --modal-nav-hover: var(--primary-accent-0);
-  --modal-nav-accent: var(--primary-accent-3);
-  --modal-content-bg: var(--background-primary);
-  --modal-checkbox-bg: var(--secondary-accent-0);
-  --modal-checked-bg: var(--secondary-accent-2);
-}
-.theme-light .modal {
-  background-color: var(--gray-light-5);
-}
-.theme-light .vertical-tab-header-group-title {
-  color: var(--gray-dark-6);
-}
-.theme-light .community-plugin .u-muted,
-.theme-light .community-plugin-desc,
-.theme-light .community-plugin-downloads,
-.theme-light .community-plugin-item,
-.theme-light .vertical-tab-nav-item {
-  color: var(--gray-dark-6);
-}
-.theme-light .document-search-container {
-  background-color: var(--background-secondary-alt);
-}
-
 .theme-dark {
   --modal-nav-bg: var(--primary-accent-6);
   --modal-nav-hover: var(--primary-accent-5);
@@ -846,8 +911,45 @@ body.plugin-sliding-panes-rotate-header .horizontal-main-container > .workspace 
   --modal-checkbox-bg: var(--secondary-accent-6);
   --modal-checked-bg: var(--secondary-accent-4);
 }
+.theme-dark .modal {
+  background-color: var(--background-primary);
+}
 .theme-dark .document-search-container {
   background-color: var(--background-secondary);
+}
+
+.theme-dark .print,
+.theme-light {
+  --modal-nav-bg: var(--primary-accent-2);
+  --modal-nav-hover: var(--primary-accent-0);
+  --modal-nav-accent: var(--primary-accent-3);
+  --modal-content-bg: var(--background-primary);
+  --modal-checkbox-bg: var(--secondary-accent-0);
+  --modal-checked-bg: var(--secondary-accent-2);
+}
+.theme-dark .print .modal,
+.theme-light .modal {
+  background-color: var(--gray-light-5);
+}
+.theme-dark .print .vertical-tab-header-group-title,
+.theme-light .vertical-tab-header-group-title {
+  color: var(--gray-dark-6);
+}
+.theme-dark .print .community-plugin .u-muted,
+.theme-dark .print .community-plugin-desc,
+.theme-dark .print .community-plugin-downloads,
+.theme-dark .print .community-plugin-item,
+.theme-dark .print .vertical-tab-nav-item,
+.theme-light .community-plugin .u-muted,
+.theme-light .community-plugin-desc,
+.theme-light .community-plugin-downloads,
+.theme-light .community-plugin-item,
+.theme-light .vertical-tab-nav-item {
+  color: var(--gray-dark-6);
+}
+.theme-dark .print .document-search-container,
+.theme-light .document-search-container {
+  background-color: var(--background-secondary-alt);
 }
 
 input[type=text],
@@ -915,6 +1017,11 @@ input[type=number] {
 .modal-container .mod-settings .setting-item button,
 .modal-container .modal.mod-settings button:not(.mod-cta):not(.mod-warning),
 .modal-container .modal .community-plugin-details button:not(.mod-cta):not(.mod-warning) {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.modal button:not(.mod-cta):not(.mod-warning) {
   background-color: var(--interactive-accent);
   color: var(--text-on-accent);
 }
@@ -1027,6 +1134,7 @@ input[type=number] {
   --text-title-h6: var(--pink-3);
 }
 
+.theme-dark .print,
 .theme-light {
   --text-title-h1: var(--yellow-3);
   --text-title-h2: var(--green-4);
@@ -1173,6 +1281,9 @@ input[type=number] {
   position: relative;
   top: -13px;
 }
+.markdown-preview-view .markdown-embed-content hr::after {
+  background: var(--background-primary-alt);
+}
 
 .theme-dark {
   --strong-em: var(--yellow-2);
@@ -1184,6 +1295,7 @@ input[type=number] {
   --link-hidden: var(--teal-4);
 }
 
+.theme-dark .print,
 .theme-light {
   --strong-em: var(--yellow-3);
   --strong: var(--blue-4);
@@ -1194,18 +1306,20 @@ input[type=number] {
   --link-hidden: var(--teal-2);
 }
 
+.cm-s-obsidian .cm-strong.cm-quote,
 .cm-s-obsidian .cm-strong,
 .view-content strong {
   color: var(--strong);
   font-weight: 600;
 }
 
+.cm-s-obsidian .cm-em.cm-quote,
 .cm-s-obsidian .cm-em,
 .view-content em {
   color: var(--em);
 }
 
-.cm-s-obsidian .cm-strong.cm-em,
+.cm-s-obsidian .cm-quote.cm-strong.cm-em,
 .cm-s-obsidian .cm-em.cm-strong,
 .view-content strong em {
   color: var(--strong-em);
@@ -1265,11 +1379,20 @@ a,
   color: var(--link-underline);
 }
 
-/* Collapse external links / markdown links in edit mode */
+/* Collapse external links / markdown links in edit mode: CodeMirrorOptions + Legacy editor */
 body.style-active-selection:not(.ebullientworks-show-edit-mode-links) div:not(.CodeMirror-activeline) > .CodeMirror-line .cm-string.cm-url:not(.cm-formatting) {
   font-size: 0;
 }
 body.style-active-selection:not(.ebullientworks-show-edit-mode-links) div:not(.CodeMirror-activeline) > .CodeMirror-line .cm-string.cm-url:not(.cm-formatting)::after {
+  content: "·";
+  font-size: 1rem;
+}
+
+/* CM6 editor */
+body:not(.ebullientworks-show-edit-mode-links) .markdown-source-view.mod-cm6 div.cm-line:not(.cm-active) > .cm-string.cm-url:not(.cm-formatting) {
+  font-size: 0;
+}
+body:not(.ebullientworks-show-edit-mode-links) .markdown-source-view.mod-cm6 div.cm-line:not(.cm-active) > .cm-string.cm-url:not(.cm-formatting)::after {
   content: "·";
   font-size: 1rem;
 }
@@ -1288,9 +1411,27 @@ body.style-active-selection:not(.ebullientworks-show-edit-mode-links) div:not(.C
   --checkbox-hover: var(--gray-dark-2);
 }
 
+.theme-dark .print,
 .theme-light {
   --checkbox-cancelled: var(--gray-dark-1);
   --checkbox-hover: var(--gray-light-2);
+}
+
+/** Set line-height on mobile */
+.mobile .markdown-preview-view ol,
+.mobile .markdown-preview-view ul {
+  display: block;
+  line-height: var(--line-height);
+}
+
+body:not(.ebullientworks-default-list-indent) {
+  /** Condense whitespace */
+}
+body:not(.ebullientworks-default-list-indent) .markdown-preview-view ol,
+body:not(.ebullientworks-default-list-indent) .markdown-preview-view ul {
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 20px;
 }
 
 body:not(.ebullientworks-nix-checkbox) {
@@ -1303,48 +1444,68 @@ body:not(.ebullientworks-nix-checkbox) {
   /* "/" Half done */
   /* text style tasks that should still have readable text */
   /* text style for important task ('- [!]') */
-}
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul {
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  padding-inline-start: 20px;
-}
-body:not(.ebullientworks-nix-checkbox) .mobile .markdown-preview-view ol,
-body:not(.ebullientworks-nix-checkbox) .mobile .markdown-preview-view ul {
-  display: block;
-  line-height: var(--line-height);
+  /* 'x' for completed task ('- [x]') */
+  /* '-' for completed task ('- [-]') */
+  /* '>' for completed task ('- [>]') */
+  /* '?' for completed task ('- [?]') */
+  /* 'R' for completed task ('- [R]') */
+  /* '!' for completed task ('- [!]') */
+  /* '/' for completed task ('- [/]') */
+  /* Consistent hover colors */
 }
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view input.task-list-item-checkbox {
   -webkit-appearance: none;
   box-sizing: border-box;
-  border: 1px solid var(--text-normal);
-  position: relative;
-  width: 13px;
-  height: 13px;
-  margin: 0;
-  margin-right: 4px;
-  margin-bottom: 1px;
   transition: background-color 200ms ease-out 0s;
   cursor: pointer;
   filter: none;
+  border: 1px solid var(--text-normal);
   border-radius: 2px;
+  position: relative;
+}
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view input.task-list-item-checkbox {
+  margin-top: 2px;
+  margin-bottom: 1px;
+}
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox:checked::before,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view input.task-list-item-checkbox:checked::before {
+  font-family: var(--font-monospace);
   position: absolute;
   text-align: center;
-  font-weight: 600;
-  line-height: 12px;
-  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  font-size: 14px;
   left: 1px;
   right: 1px;
+}
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox::before,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li > input.task-list-item-checkbox:checked::before,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li > p > input.task-list-item-checkbox:checked::before {
+  content: "✓";
+  color: var(--text-normal);
+}
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li > input.task-list-item-checkbox,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li > p > input.task-list-item-checkbox {
+  border-color: var(--text-normal);
+  color: var(--text-normal);
 }
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li.task-list-item {
   font-weight: normal;
   color: var(--text-normal);
 }
-body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task=X]::before,
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task]:not([data-task=" "]),
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox + span,
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox + span + span,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li.task-list-item.is-checked {
+  color: var(--text-normal);
+  text-decoration: none;
+}
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task=x]::before,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task=X] > input.task-list-item-checkbox:checked::before,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task=X] > p > input.task-list-item-checkbox:checked::before,
@@ -1365,13 +1526,20 @@ body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task=
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="-"]::before,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="-"] > input.task-list-item-checkbox:checked::before,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="-"] > p > input.task-list-item-checkbox:checked::before {
-  content: "−";
+  content: "-";
   color: var(--checkbox-cancelled);
 }
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="-"],
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="-"] > input.task-list-item-checkbox,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="-"] > p > input.task-list-item-checkbox {
   border-color: var(--checkbox-cancelled);
+  color: var(--checkbox-cancelled);
+}
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="-"],
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="-"] + span,
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="-"] + span + span,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="-"].task-list-item.is-checked {
+  text-decoration: line-through;
   color: var(--checkbox-cancelled);
 }
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task=">"]::before,
@@ -1423,11 +1591,17 @@ body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task=
   border-color: var(--checkbox-important);
   color: var(--checkbox-important);
 }
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="!"],
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="!"] + span,
+body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="!"] + span + span,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="!"].task-list-item.is-checked {
+  color: var(--checkbox-important);
+  font-weight: 900;
+}
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="/"]::before,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="/"] > input.task-list-item-checkbox:checked::before,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="/"] > p > input.task-list-item-checkbox:checked::before {
   content: " ";
-  font-family: var(--font-monospace);
   line-height: 18px;
 }
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="/"],
@@ -1436,41 +1610,24 @@ body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task=
   border-color: var(--checkbox-in-progress);
   background: linear-gradient(135deg, transparent 50%, var(--checkbox-in-progress) 50%);
 }
-body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox + span,
-body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox + span + span,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li.task-list-item.is-checked {
-  color: var(--text-normal);
-  text-decoration: none;
-}
-body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="!"] + span,
-body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="!"] + span + span,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="!"].task-list-item.is-checked {
-  font-weight: 900;
-}
-body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="-"] + span,
-body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox[data-task="-"] + span + span,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view ul > li[data-task="-"].task-list-item.is-checked {
-  color: var(--checkbox-cancelled);
-  text-decoration: line-through;
-}
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-source-view.mod-cm6 input.task-list-item-checkbox:checked:hover,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=X] > input.task-list-item-checkbox:checked:hover,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=X] > p > input.task-list-item-checkbox:checked:hover,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=x] > input.task-list-item-checkbox:checked:hover,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=x] > p > input.task-list-item-checkbox:checked:hover,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="!"] > input.task-list-item-checkbox:checked:hover,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="!"] > p > input.task-list-item-checkbox:checked:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="-"] > input.task-list-item-checkbox:checked:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="-"] > p > input.task-list-item-checkbox:checked:hover,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="/"] > input.task-list-item-checkbox:checked:hover,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="/"] > p > input.task-list-item-checkbox:checked:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=">"] > input.task-list-item-checkbox:checked:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=">"] > p > input.task-list-item-checkbox:checked:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="?"] > input.task-list-item-checkbox:checked:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="?"] > p > input.task-list-item-checkbox:checked:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=R] > input.task-list-item-checkbox:checked:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=R] > p > input.task-list-item-checkbox:checked:hover,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="/"] > input.task-list-item-checkbox:checked:hover,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="/"] > p > input.task-list-item-checkbox:checked:hover,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="!"] > input.task-list-item-checkbox:checked:hover,
-body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task="!"] > p > input.task-list-item-checkbox:checked:hover,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=X] > input.task-list-item-checkbox:checked:hover,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=X] > p > input.task-list-item-checkbox:checked:hover,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=x] > input.task-list-item-checkbox:checked:hover,
+body:not(.ebullientworks-nix-checkbox) .markdown-preview-view li[data-task=x] > p > input.task-list-item-checkbox:checked:hover,
 body:not(.ebullientworks-nix-checkbox) .markdown-preview-view input.task-list-item-checkbox:hover {
   color: var(--text-on-accent);
   background-color: var(--checkbox-hover);
@@ -1478,7 +1635,24 @@ body:not(.ebullientworks-nix-checkbox) .markdown-preview-view input.task-list-it
 }
 
 :root {
-  --tags: var(--pink-4);
+  --tag-0: var(--pink-0);
+  --tag-1: var(--pink-1);
+  --tag-2: var(--pink-2);
+  --tag-3: var(--pink-3);
+  --tag-4: var(--pink-4);
+  --tag-5: var(--pink-5);
+  --tag-6: var(--pink-6);
+  --tag-dark: var(--tag-4);
+  --tag-light: var(--tag-4);
+}
+
+.theme-dark {
+  --tags: var(--tag-dark);
+}
+
+.theme-dark .print,
+.theme-light {
+  --tags: var(--tag-light);
 }
 
 .cm-s-obsidian span.cm-hashtag,
@@ -1496,14 +1670,9 @@ body:not(.ebullientworks-nix-checkbox) .markdown-preview-view input.task-list-it
 .markdown-preview-view h4 a.tag,
 .markdown-preview-view h5 a.tag,
 .markdown-preview-view h6 a.tag {
-  font-size: 0.8rem !important;
   text-decoration: none;
 }
 
-@font-face {
-  font-family: "ebullientworks-icons";
-  src: url("data:application/octet-stream;base64,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") format("woff"), url("data:application/octet-stream;base64,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IDyKOCMhWS2wPyywABawFyNCILAKQyAuRyNHI2EgYLAgYGawAmIgsABQWLBAYFlmsAFjIyAgPIo4LbBALCMgLkawAiVGsBdDWFAbUllYIDxZLrEwARQrLbBBLCMgLkawAiVGsBdDWFIbUFlYIDxZLrEwARQrLbBCLCMgLkawAiVGsBdDWFAbUllYIDxZIyAuRrACJUawF0NYUhtQWVggPFkusTABFCstsEMssDorIyAuRrACJUawF0NYUBtSWVggPFkusTABFCstsEQssDsriiAgPLAGI0KKOCMgLkawAiVGsBdDWFAbUllYIDxZLrEwARQrsAZDLrAwKy2wRSywABawBCWwBCYgICBGI0dhsAwjQi5HI0cjYbALQysjIDwgLiM4sTABFCstsEYssQoEJUKwABawBCWwBCUgLkcjRyNhILAGI0KxDABCsAtDKyCwYFBYILBAUVizBCAFIBuzBCYFGllCQiMgR7AGQ7ACYiCwAFBYsEBgWWawAWNgILABKyCKimEgsARDYGQjsAVDYWRQWLAEQ2EbsAVDYFmwAyWwAmIgsABQWLBAYFlmsAFjYbACJUZhOCMgPCM4GyEgIEYjR7ABKyNhOCFZsTABFCstsEcssQA6Ky6xMAEUKy2wSCyxADsrISMgIDywBiNCIzixMAEUK7AGQy6wMCstsEkssAAVIEewACNCsgABARUUEy6wNiotsEossAAVIEewACNCsgABARUUEy6wNiotsEsssQABFBOwNyotsEwssDkqLbBNLLAAFkUjIC4gRoojYTixMAEUKy2wTiywCiNCsE0rLbBPLLIAAEYrLbBQLLIAAUYrLbBRLLIBAEYrLbBSLLIBAUYrLbBTLLIAAEcrLbBULLIAAUcrLbBVLLIBAEcrLbBWLLIBAUcrLbBXLLMAAABDKy2wWCyzAAEAQystsFksswEAAEMrLbBaLLMBAQBDKy2wWyyzAAABQystsFwsswABAUMrLbBdLLMBAAFDKy2wXiyzAQEBQystsF8ssgAARSstsGAssgABRSstsGEssgEARSstsGIssgEBRSstsGMssgAASCstsGQssgABSCstsGUssgEASCstsGYssgEBSCstsGcsswAAAEQrLbBoLLMAAQBEKy2waSyzAQAARCstsGosswEBAEQrLbBrLLMAAAFEKy2wbCyzAAEBRCstsG0sswEAAUQrLbBuLLMBAQFEKy2wbyyxADwrLrEwARQrLbBwLLEAPCuwQCstsHEssQA8K7BBKy2wciywABaxADwrsEIrLbBzLLEBPCuwQCstsHQssQE8K7BBKy2wdSywABaxATwrsEIrLbB2LLEAPSsusTABFCstsHcssQA9K7BAKy2weCyxAD0rsEErLbB5LLEAPSuwQistsHossQE9K7BAKy2weyyxAT0rsEErLbB8LLEBPSuwQistsH0ssQA+Ky6xMAEUKy2wfiyxAD4rsEArLbB/LLEAPiuwQSstsIAssQA+K7BCKy2wgSyxAT4rsEArLbCCLLEBPiuwQSstsIMssQE+K7BCKy2whCyxAD8rLrEwARQrLbCFLLEAPyuwQCstsIYssQA/K7BBKy2whyyxAD8rsEIrLbCILLEBPyuwQCstsIkssQE/K7BBKy2wiiyxAT8rsEIrLbCLLLILAANFUFiwBhuyBAIDRVgjIRshWVlCK7AIZbADJFB4sQUBFUVYMFktAEu4AMhSWLEBAY5ZsAG5CAAIAGNwsQAHQrEAACqxAAdCsQAKKrEAB0KxAAoqsQAHQrkAAAALKrEAB0K5AAAACyq5AAMAAESxJAGIUViwQIhYuQADAGREsSgBiFFYuAgAiFi5AAMAAERZG7EnAYhRWLoIgAABBECIY1RYuQADAABEWVlZWVmxAA4quAH/hbAEjbECAESzBWQGAERE") format("truetype");
-}
 .theme-dark .markdown-preview-view blockquote {
   border-color: var(--secondary-accent-4);
   border-left: 3px solid var(--secondary-accent-4);
@@ -1512,34 +1681,22 @@ body:not(.ebullientworks-nix-checkbox) .markdown-preview-view input.task-list-it
   color: var(--secondary-accent-4);
 }
 
+.theme-dark .print .markdown-preview-view blockquote,
 .theme-light .markdown-preview-view blockquote {
   border-color: var(--secondary-accent-2);
   border-left: 3px solid var(--secondary-accent-2);
 }
+.theme-dark .print .markdown-preview-view blockquote:before,
 .theme-light .markdown-preview-view blockquote:before {
   color: var(--secondary-accent-2);
 }
 
 .markdown-preview-view blockquote {
-  background-color: var(--background-secondary);
+  background-color: var(--background-primary-alt);
   margin: 0;
   padding-left: 1em;
   overflow-x: auto;
   position: relative;
-}
-
-.markdown-preview-view blockquote:before {
-  position: absolute;
-  top: -3px;
-  left: -2px;
-  width: 16px;
-  height: 16px;
-  overflow-y: hidden;
-  content: "\e800";
-  font-family: "ebullientworks-icons";
-  font-style: normal;
-  font-weight: normal;
-  speak: never;
 }
 
 blockquote p {
@@ -1550,6 +1707,7 @@ blockquote p {
   --pre-code: var(--blue-2);
 }
 
+.theme-dark .print,
 .theme-light {
   --pre-code: var(--blue-5);
 }
@@ -1627,21 +1785,23 @@ div[src$="#portrait"] {
   padding: 0;
   margin: 0;
 }
-
-.markdown-preview-view .markdown-embed-content,
-.markdown-preview-view .markdown-embed-content > .markdown-preview-view {
+.markdown-preview-view .markdown-embed .markdown-embed-content,
+.markdown-preview-view .markdown-embed .markdown-embed-content > .markdown-preview-view {
   max-height: unset;
-  background-color: var(--background-secondary);
-  /*define different bg color*/
+  background-color: var(--background-primary-alt);
 }
-
-.markdown-preview-view .markdown-embed-content > :first-child {
+.markdown-preview-view .markdown-embed .markdown-embed-content > :first-child {
   margin-top: 0;
 }
-
-.markdown-preview-view .markdown-embed-content > :last-child {
+.markdown-preview-view .markdown-embed .markdown-embed-content > :last-child {
   margin-bottom: 0;
   padding-bottom: 1em;
+}
+
+.print.print-preview > .markdown-preview-view .markdown-embed-content,
+.print.print-preview > .markdown-preview-view .markdown-embed-content > .markdown-preview-view {
+  overflow-wrap: break-word;
+  width: auto;
 }
 
 .popover.hover-popover .markdown-embed {
@@ -1689,7 +1849,7 @@ div[src$="#portrait"] {
 
 .rendered-widget .admonition,
 .markdown-preview-section .admonition {
-  border-left: 0.2rem solid rgb(var(--admonition-color));
+  border-left: 0.15rem solid rgb(var(--admonition-color));
   background-color: var(--background-primary-alt);
 }
 .rendered-widget .admonition .admonition-title,
@@ -1702,7 +1862,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-note,
 .markdown-preview-section .admonition.admonition-note {
-  border-left: 0.2rem solid rgb(var(--admonition-note));
+  border-left: 0.15rem solid rgb(var(--admonition-note));
 }
 .rendered-widget .admonition.admonition-note .admonition-title,
 .markdown-preview-section .admonition.admonition-note .admonition-title {
@@ -1714,7 +1874,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-abstract,
 .markdown-preview-section .admonition.admonition-abstract {
-  border-left: 0.2rem solid rgb(var(--admonition-abstract));
+  border-left: 0.15rem solid rgb(var(--admonition-abstract));
 }
 .rendered-widget .admonition.admonition-abstract .admonition-title,
 .markdown-preview-section .admonition.admonition-abstract .admonition-title {
@@ -1726,7 +1886,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-info,
 .markdown-preview-section .admonition.admonition-info {
-  border-left: 0.2rem solid rgb(var(--admonition-info));
+  border-left: 0.15rem solid rgb(var(--admonition-info));
 }
 .rendered-widget .admonition.admonition-info .admonition-title,
 .markdown-preview-section .admonition.admonition-info .admonition-title {
@@ -1738,7 +1898,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-tip,
 .markdown-preview-section .admonition.admonition-tip {
-  border-left: 0.2rem solid rgb(var(--admonition-tip));
+  border-left: 0.15rem solid rgb(var(--admonition-tip));
 }
 .rendered-widget .admonition.admonition-tip .admonition-title,
 .markdown-preview-section .admonition.admonition-tip .admonition-title {
@@ -1750,7 +1910,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-success,
 .markdown-preview-section .admonition.admonition-success {
-  border-left: 0.2rem solid rgb(var(--admonition-success));
+  border-left: 0.15rem solid rgb(var(--admonition-success));
 }
 .rendered-widget .admonition.admonition-success .admonition-title,
 .markdown-preview-section .admonition.admonition-success .admonition-title {
@@ -1762,7 +1922,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-question,
 .markdown-preview-section .admonition.admonition-question {
-  border-left: 0.2rem solid rgb(var(--admonition-question));
+  border-left: 0.15rem solid rgb(var(--admonition-question));
 }
 .rendered-widget .admonition.admonition-question .admonition-title,
 .markdown-preview-section .admonition.admonition-question .admonition-title {
@@ -1774,7 +1934,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-warning,
 .markdown-preview-section .admonition.admonition-warning {
-  border-left: 0.2rem solid rgb(var(--admonition-warning));
+  border-left: 0.15rem solid rgb(var(--admonition-warning));
 }
 .rendered-widget .admonition.admonition-warning .admonition-title,
 .markdown-preview-section .admonition.admonition-warning .admonition-title {
@@ -1786,7 +1946,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-failure,
 .markdown-preview-section .admonition.admonition-failure {
-  border-left: 0.2rem solid rgb(var(--admonition-failure));
+  border-left: 0.15rem solid rgb(var(--admonition-failure));
 }
 .rendered-widget .admonition.admonition-failure .admonition-title,
 .markdown-preview-section .admonition.admonition-failure .admonition-title {
@@ -1798,7 +1958,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-danger,
 .markdown-preview-section .admonition.admonition-danger {
-  border-left: 0.2rem solid rgb(var(--admonition-danger));
+  border-left: 0.15rem solid rgb(var(--admonition-danger));
 }
 .rendered-widget .admonition.admonition-danger .admonition-title,
 .markdown-preview-section .admonition.admonition-danger .admonition-title {
@@ -1810,7 +1970,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-bug,
 .markdown-preview-section .admonition.admonition-bug {
-  border-left: 0.2rem solid rgb(var(--admonition-bug));
+  border-left: 0.15rem solid rgb(var(--admonition-bug));
 }
 .rendered-widget .admonition.admonition-bug .admonition-title,
 .markdown-preview-section .admonition.admonition-bug .admonition-title {
@@ -1822,7 +1982,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-example,
 .markdown-preview-section .admonition.admonition-example {
-  border-left: 0.2rem solid rgb(var(--admonition-example));
+  border-left: 0.15rem solid rgb(var(--admonition-example));
 }
 .rendered-widget .admonition.admonition-example .admonition-title,
 .markdown-preview-section .admonition.admonition-example .admonition-title {
@@ -1836,7 +1996,7 @@ div[src$="#portrait"] {
 .rendered-widget .admonition.admonition-quote,
 .markdown-preview-section .admonition.admonition-excerpt,
 .markdown-preview-section .admonition.admonition-quote {
-  border-left: 0.2rem solid rgb(var(--admonition-quote));
+  border-left: 0.15rem solid rgb(var(--admonition-quote));
 }
 .rendered-widget .admonition.admonition-excerpt .admonition-title,
 .rendered-widget .admonition.admonition-quote .admonition-title,
@@ -1852,7 +2012,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-reference,
 .markdown-preview-section .admonition.admonition-reference {
-  border-left: 0.2rem solid rgb(var(--admonition-reference));
+  border-left: 0.15rem solid rgb(var(--admonition-reference));
 }
 .rendered-widget .admonition.admonition-reference .admonition-title,
 .markdown-preview-section .admonition.admonition-reference .admonition-title {
@@ -1864,7 +2024,7 @@ div[src$="#portrait"] {
 }
 .rendered-widget .admonition.admonition-toc,
 .markdown-preview-section .admonition.admonition-toc {
-  border-left: 0.2rem solid rgb(var(--admonition-toc));
+  border-left: 0.15rem solid rgb(var(--admonition-toc));
 }
 .rendered-widget .admonition.admonition-toc .admonition-title,
 .markdown-preview-section .admonition.admonition-toc .admonition-title {
@@ -1934,16 +2094,19 @@ div[src$="#portrait"] {
   color: var(--gray-light-5);
 }
 
+.theme-dark .print,
 .theme-light {
   --calendar-year: var(--primary-accent-4);
   --calendar-month: var(--secondary-accent-4);
   --calendar-dividing-line: var(--primary-accent-1);
   --day-planner-timeline-fg: var(--blue-1);
 }
+.theme-dark .print .day.today,
 .theme-light .day.today {
   color: var(--primary-accent-4);
   font-weight: bold;
 }
+.theme-dark .print .day.today:hover,
 .theme-light .day.today:hover {
   color: var(--gray-dark-5);
 }
@@ -1998,22 +2161,27 @@ div[src$="#portrait"] {
   border: 4px solid var(--primary-accent-4);
 }
 
+.theme-dark .print timeline-container h2,
 .theme-light timeline-container h2 {
   color: var(--gray-light-1);
 }
+.theme-dark .print .timeline-left::before,
 .theme-light .timeline-left::before {
   border: medium solid var(--gray-light-1);
   border-width: 10px 0 10px 10px;
   border-color: transparent transparent transparent var(--gray-light-1);
 }
+.theme-dark .print .timeline-right::before,
 .theme-light .timeline-right::before {
   border: medium solid var(--gray-light-1);
   border-width: 10px 10px 10px 0;
   border-color: transparent var(--gray-light-1) transparent transparent;
 }
+.theme-dark .print .timeline-container::after,
 .theme-light .timeline-container::after {
   border: 4px solid var(--primary-accent-2);
 }
+.theme-dark .print .timeline::after,
 .theme-light .timeline::after {
   background-color: var(--blue-1);
 }
@@ -2106,6 +2274,7 @@ div[src$="#portrait"] {
   --table-alt-alpha: .2;
 }
 
+.theme-dark .print,
 .theme-light {
   --table-alt-alpha: .05;
 }
@@ -2144,4 +2313,18 @@ div[src$="#portrait"] {
 .ebullientworks-table-width table .table-view-table > tbody > tr > td,
 .ebullientworks-table-width table tbody > tr > td {
   word-break: break-all;
+}
+
+body.ebullientworks-hide-inactive-collapse-indicators {
+  /* hide collapse indicators until hovered/active line */
+}
+body.ebullientworks-hide-inactive-collapse-indicators li:not(:hover) .collapse-indicator,
+body.ebullientworks-hide-inactive-collapse-indicators h1:not(:hover) .collapse-indicator,
+body.ebullientworks-hide-inactive-collapse-indicators h2:not(:hover) .collapse-indicator,
+body.ebullientworks-hide-inactive-collapse-indicators h3:not(:hover) .collapse-indicator,
+body.ebullientworks-hide-inactive-collapse-indicators h4:not(:hover) .collapse-indicator,
+body.ebullientworks-hide-inactive-collapse-indicators h5:not(:hover) .collapse-indicator,
+body.ebullientworks-hide-inactive-collapse-indicators h6:not(:hover) .collapse-indicator,
+body.ebullientworks-hide-inactive-collapse-indicators .cm-line:not(:hover):not(.cm-active) .collapse-indicator {
+  color: transparent;
 }

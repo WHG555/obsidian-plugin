@@ -1,25 +1,40 @@
 # obsidian-plugin
 
 #### 介绍
-obsidian所有插件下载库，可以下载目前obsidian论坛中所有的插件。提供了说明文档，方便更好的选择自己想要的插件。
+obsidian的最新插件与主题
 
-本文件夹是一个ob库，可以直接使用ob来打开。
+#### 软件架构
+软件架构说明
 
-## 插件说明文档
-[插件](插件.md)  -- 所有插件的说明文档以及下载方式
 
-## 插件帮助文档
-[插件帮助文档](帮助文档.md)  -- 里面有插件的英文原版文档，与一些通过Google翻译的中文文档，还有一些因为机器问题没有翻译完成。欢迎大家一起来翻译，进行提交。
-- README.md	-- 插件的原版说明文档，没有经过任务修改
-- README-en.md	 -- 修改图片链接的英文文档。我对文档中的图片链接进行了修改，同时把图片下载到库，方便引用
-- README-zh.md	 -- 中文说明文档。通过Google翻译的中文文档，还有一些没有翻译。进行翻译了可以将名字添加到对应插件的修改人当中。
+#### 安装教程
 
-## 主题说明文档
-[主题](主题.md)  -- 所有主题的说明文档以及下载方式
+1.  xxxx
+2.  xxxx
+3.  xxxx
 
----
-Smile with you
-aaa
+#### 使用说明
+
+1.  xxxx
+2.  xxxx
+3.  xxxx
+
+#### 参与贡献
+
+1.  Fork 本仓库
+2.  新建 Feat_xxx 分支
+3.  提交代码
+4.  新建 Pull Request
+
+
+#### 特技
+
+1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
+2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
+3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
+4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
+5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
+6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
 aaa
 aaa
 aaa

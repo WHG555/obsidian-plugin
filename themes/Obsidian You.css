@@ -326,7 +326,9 @@ span.cm-hmd-frontmatter {
 
 /* Code blocks */
 /* Inline:  .cm-s-obsidian span.cm-inline-code  */
+.markdown-preview-view pre,
 .markdown-preview-view code,
+.cm-s-obsidian span.cm-inline-code,
 .cm-s-obsidian .HyperMD-codeblock {
   color: var(--primary-dark);
   font-family: var(--font-monospace);
@@ -636,9 +638,11 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 /* # Title Bar */
 /* ------------- */
 /* Light Mode */
+/* Any pane headers */
 .theme-light .workspace-split.mod-root
   > .workspace-leaf:first-of-type:last-of-type
   .view-header,
+.theme-light .workspace-split.mod-root .view-header,
 .theme-light .workspace-leaf.mod-active .view-header,
 .theme-light .is-mobile .view-header {
   border-bottom: none;
@@ -646,6 +650,11 @@ body:not(.is-grabbing) .nav-folder-title:hover {
     2.5px 2.4px 10px rgba(0, 0, 0, 0.05), 6px 5.7px 24.1px rgba(0, 0, 0, 0.065),
     20px 19px 80px rgba(0, 0, 0, 0.1);
   background-color: var(--primary);
+}
+
+/* Split panes: not active */
+.theme-light .workspace-leaf:not(.mod-active) .view-header {
+    background-color: var(--primary-light) !important;
 }
 
 /* Dark Mode */
@@ -660,6 +669,11 @@ body:not(.is-grabbing) .nav-folder-title:hover {
     20px 19px 80px rgba(0, 0, 0, 0.1);
   background-color: var(--background-secondary);
   color: var(--primary);
+}
+
+/* Split panes: not active */
+.theme-dark .workspace-leaf:not(.mod-active) .view-header {
+    background-color: var(--background-primary-alt) !important;
 }
 
 /* Style hamburger menu */
@@ -677,14 +691,14 @@ svg.three-horizontal-bars {
 
 /* ## Title */
 .theme-light .is-mobile .view-header-title,
-.theme-light .workspace-leaf.mod-active .view-header-title {
+.theme-light .workspace-leaf-content .view-header-title {
   line-height: 50px;
   font-size: var(--h5);
   font-weight: var(--regular);
   color: var(--background-primary);
 }
 .theme-dark .is-mobile .view-header-title,
-.theme-dark .workspace-leaf.mod-active .view-header-title {
+.theme-dark .workspace-leaf-content .view-header-title {
   line-height: 50px;
   font-size: var(--h5);
   font-weight: var(--regular);
@@ -693,6 +707,10 @@ svg.three-horizontal-bars {
 
 .view-action:not(.page-header-button) {
     display: none;
+}
+
+.theme-light .view-action {
+  color: var(--background-secondary-alt);
 }
 
 /* Replace vertical dots icon */

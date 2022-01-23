@@ -1,1 +1,0 @@
-<%tp.config.template_file%>

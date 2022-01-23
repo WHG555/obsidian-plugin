@@ -1,13 +1,36 @@
 # obsidian-plugin
 
-#### 介绍
-obsidian所有插件下载库，可以下载目前obsidian论坛中所有的插件。提供了说明文档，方便更好的选择自己想要的插件。
+#### Description
+obsidian的最新插件与主题
 
-## 插件说明文档
-[插件](插件.md)  -- 所有插件的说明文档以及下载方式
+#### Software Architecture
+Software architecture description
 
-## 主题说明文档
-[主题](主题.md)  -- 所有主题的说明文档以及下载方式
+#### Installation
 
----
-Smile with you
+1.  xxxx
+2.  xxxx
+3.  xxxx
+
+#### Instructions
+
+1.  xxxx
+2.  xxxx
+3.  xxxx
+
+#### Contribution
+
+1.  Fork the repository
+2.  Create Feat_xxx branch
+3.  Commit your code
+4.  Create Pull Request
+
+
+#### Gitee Feature
+
+1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
+2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
+3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
+4.  The most valuable open source project [GVP](https://gitee.com/gvp)
+5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
+6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
